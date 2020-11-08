@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">ComingDay</string>
-    <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_category">Categories</string>
+
+    <string name="test_event_name">My Birthday</string>
+    <string name="test_event_date">Target Date: 2020–10–10</string>
+    <string name="test_event_days">190</string>
+    <string name="header_concat_text_plural">days to</string>
+    <string name="header_concat_text_single">day to</string>
+    <string name="instruction_text">Hello! Welcome to Comingdays, just click the add button below to add your event!</string>
 </resources>

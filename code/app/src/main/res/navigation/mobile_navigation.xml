@@ -3,13 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
-
-    <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.cs518.comingday.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+    app:startDestination="@id/navigation_dashboard">
 
     <fragment
         android:id="@+id/navigation_dashboard"
@@ -18,8 +12,13 @@
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.cs518.comingday.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_categories"
+        android:name="com.cs518.comingday.ui.categories.CategoriesFragment"
+        android:label="@string/title_category"
+        tools:layout="@layout/fragment_category" />
+    <fragment
+        android:id="@+id/eventDetailFragment"
+        android:name="com.cs518.comingday.ui.eventdetail.EventDetailFragment"
+        android:label="event_detail_fragment"
+        tools:layout="@layout/event_detail_fragment" />
 </navigation>

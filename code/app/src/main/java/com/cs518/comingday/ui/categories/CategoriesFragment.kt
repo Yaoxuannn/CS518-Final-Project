@@ -1,4 +1,4 @@
-package com.cs518.comingday.ui.home
+package com.cs518.comingday.ui.categories
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,23 +9,22 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.cs518.comingday.R
+import com.cs518.comingday.databinding.FragmentDashboardBinding
 
-class HomeFragment : Fragment() {
+class CategoriesFragment : Fragment() {
 
-    private lateinit var homeViewModel: HomeViewModel
+    private lateinit var categoriesViewModel: CategoriesViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        homeViewModel =
-                ViewModelProvider(this).get(HomeViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
-        val textView: TextView = root.findViewById(R.id.text_home)
-        homeViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
+        categoriesViewModel =
+                ViewModelProvider(this).get(CategoriesViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_category, container, false)
+
+
         return root
     }
 }
