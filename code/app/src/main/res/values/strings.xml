@@ -13,5 +13,6 @@
     <string name="header_concat_text_plural">days to</string>
     <string name="header_concat_text_single">day to</string>
     <string name="instruction_text">Hello! Welcome to Comingdays, just click the add button below to add your event!</string>
+    <string name="new_category_create_text">Click here to create a new category</string>
 
 </resources>

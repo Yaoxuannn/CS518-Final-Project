@@ -12,7 +12,7 @@ interface CategoryDatabaseDao {
     suspend fun insert(category: Category)
 
     @Query("SELECT * FROM category_table ORDER BY categoryId")
-    suspend fun getAllCategories(): LiveData<List<Category>>
+    fun getAllCategories(): LiveData<List<Category>>
 
     @Query("DELETE FROM category_table WHERE categoryId = :key")
     fun clearCategoryWithId(key: Long)
