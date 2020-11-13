@@ -3,8 +3,8 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_category">Categories</string>
 
-    <string name="event_name_edit_hint">Enter your event name here.</string>
-    <string name="event_date_edit_hint">Select a date</string>
+    <string name="event_name_edit_hint">Event Name</string>
+    <string name="event_date_edit_hint">Date Selection</string>
     <string name="sticky_on_top">Sticky on top</string>
 
     <string name="test_event_name">My Birthday</string>
@@ -14,5 +14,11 @@
     <string name="header_concat_text_single">day to</string>
     <string name="instruction_text">Hello! Welcome to Comingdays, just click the add button below to add your event!</string>
     <string name="new_category_create_text">Click here to create a new category</string>
+    <string name="create_label">create</string>
+    <string name="extended_fab_content_desc">create a new event</string>
+    <string name="date_select_prompt">Select a date</string>
+    <string name="category_edit_hint">Category name</string>
+    <string name="category_edit_confirm">Confirm</string>
+    <string name="test_category_name">Anniversary</string>
 
 </resources>

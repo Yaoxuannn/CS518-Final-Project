@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.cs518.comingday.database.Category
-import com.cs518.comingday.databinding.FragmentCategoryBinding
+import com.cs518.comingday.databinding.ListItemCategoryBinding
 
 class CategoryAdapter(val clickListener: CategoryClickListener) : ListAdapter<Category, CategoryAdapter.ViewHolder>(CategoryDiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryAdapter.ViewHolder {
@@ -18,7 +18,7 @@ class CategoryAdapter(val clickListener: CategoryClickListener) : ListAdapter<Ca
         holder.bind(item, clickListener)
     }
 
-    class ViewHolder private constructor(val binding: FragmentCategoryBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder private constructor(val binding: ListItemCategoryBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Category, clickListener: CategoryClickListener) {
             binding.category = item
             binding.clickListener = clickListener
@@ -28,7 +28,7 @@ class CategoryAdapter(val clickListener: CategoryClickListener) : ListAdapter<Ca
         companion object {
             fun from(parent: ViewGroup) : ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = FragmentCategoryBinding.inflate(layoutInflater, parent, false)
+                val binding = ListItemCategoryBinding.inflate(layoutInflater, parent, false)
                 return ViewHolder(binding)
             }
         }

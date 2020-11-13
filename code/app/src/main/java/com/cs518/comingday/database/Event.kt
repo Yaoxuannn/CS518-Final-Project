@@ -15,7 +15,7 @@ data class Event(
     var eventName: String = "",
 
     @ColumnInfo(name = "target_date")
-    var eventDate: Date = Date(),
+    var eventDate: String = "",
 
     @ColumnInfo(name = "category_id")
     var categoryId: Long = -1L,

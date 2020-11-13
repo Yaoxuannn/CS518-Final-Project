@@ -1,15 +1,16 @@
 package com.cs518.comingday.database
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 
 @Dao
 interface CategoryDatabaseDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insert(category: Category)
+
+    @Update
+    suspend fun update(category: Category)
 
     @Query("SELECT * FROM category_table ORDER BY categoryId")
     fun getAllCategories(): LiveData<List<Category>>

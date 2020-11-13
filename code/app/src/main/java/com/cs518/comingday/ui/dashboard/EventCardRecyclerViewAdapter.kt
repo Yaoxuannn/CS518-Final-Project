@@ -1,4 +1,4 @@
-package com.cs518.comingday.ui.eventcard
+package com.cs518.comingday.ui.dashboard
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

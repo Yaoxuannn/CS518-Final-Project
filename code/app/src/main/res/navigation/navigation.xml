@@ -3,28 +3,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/dashboardFragment">
+    app:startDestination="@id/navigation_dashboard">
     <fragment
-        android:id="@+id/dashboardFragment"
+        android:id="@+id/navigation_dashboard"
         android:name="com.cs518.comingday.ui.dashboard.DashboardFragment"
-        android:label="DashboardFragment" >
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/fragment_dashboard">
         <action
             android:id="@+id/action_dashboardFragment_to_eventDetailFragment"
-            app:destination="@id/eventDetailFragment" />
+            app:destination="@id/navigation_eventdetail" />
+        <action
+            android:id="@+id/action_navigation_dashboard_to_navigation_eventdetail"
+            app:destination="@id/navigation_eventdetail"
+            app:enterAnim="@anim/slide_in_right"
+            app:popEnterAnim="@anim/slide_in_right" />
     </fragment>
     <fragment
-        android:id="@+id/eventDetailFragment"
+        android:id="@+id/navigation_eventdetail"
         android:name="com.cs518.comingday.ui.eventdetail.EventDetailFragment"
-        android:label="EventDetailFragment" >
+        tools:layout="@layout/fragment_event_detail">
         <argument
             android:name="eventId"
             app:argType="long" />
         <action
             android:id="@+id/action_eventDetailFragment_to_dashboardFragment"
-            app:destination="@id/dashboardFragment" />
+            app:destination="@id/navigation_dashboard"
+            app:exitAnim="@anim/slide_out_left" />
     </fragment>
     <fragment
-        android:id="@+id/categoriesFragment"
+        android:id="@+id/navigation_categories"
         android:name="com.cs518.comingday.ui.categories.CategoriesFragment"
-        android:label="CategoriesFragment" />
+        android:label="@string/title_category"
+        tools:layout="@layout/fragment_category" />
 </navigation>

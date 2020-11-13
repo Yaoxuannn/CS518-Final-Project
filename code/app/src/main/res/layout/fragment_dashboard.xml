@@ -4,23 +4,40 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <variable
+            name="dashboardViewModel"
+            type="com.cs518.comingday.ui.dashboard.DashboardViewModel"/>
 
     </data>
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="8dp"
-        android:background="@color/design_default_color_background"
-        android:paddingStart="@dimen/normal_padding"
-        android:paddingEnd="@dimen/normal_padding"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
+            android:id="@+id/event_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_margin="8dp">
 
-    </androidx.core.widget.NestedScrollView>
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/create_event_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_margin="16dp"
+            android:contentDescription="@string/extended_fab_content_desc"
+            android:text="@string/create_label"
+            android:onClick="@{() -> dashboardViewModel.onCreateButtonClicked()}"
+            app:icon="@drawable/ic_plus"
+            app:layout_constraintBottom_toTopOf="@+id/event_list"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
 
 </layout>

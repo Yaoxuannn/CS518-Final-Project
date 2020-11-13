@@ -10,7 +10,7 @@
 
         <variable
             name="clickListener"
-            type="com.cs518.comingday.ui.eventcard.EventCardClickListener"/>
+            type="com.cs518.comingday.ui.dashboard.EventCardClickListener"/>
 
     </data>
 
@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:onClick="@{() -> clickListener.onClick(event)}"
         app:cardBackgroundColor="@android:color/white"
-        app:cardElevation="2dp"
+        app:cardElevation="8dp"
         app:cardPreventCornerOverlap="true">
 
         <LinearLayout
