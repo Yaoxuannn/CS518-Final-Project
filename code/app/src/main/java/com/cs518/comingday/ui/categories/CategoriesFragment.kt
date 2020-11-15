@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.cs518.comingday.R
 import com.cs518.comingday.database.CategoryDatabase
 import com.cs518.comingday.databinding.FragmentCategoryBinding
+import com.google.android.material.snackbar.Snackbar
 
 class CategoriesFragment : Fragment() {
 
@@ -36,21 +37,31 @@ class CategoriesFragment : Fragment() {
         binding.categoryList.adapter = adapter
         binding.lifecycleOwner = this
 
-        binding.addButton.setOnClickListener {
-            categoriesViewModel.onAddButtonClicked()
-        }
-
-        binding.categoryNameConfirm.setOnClickListener {
-            categoriesViewModel.onConfirmButtonClicked()
-            categoriesViewModel.addNewCategory(binding.categoryNameEdit.text.toString())
-        }
-
+        categoriesViewModel.showSnackBar.observe(viewLifecycleOwner, Observer {
+            if (it == true) {
+                Snackbar.make(
+                    requireActivity().findViewById(android.R.id.content),
+                    "Illegal category name.",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+                categoriesViewModel.doneShowSnackBar()
+            }
+        })
 
         categoriesViewModel.categories.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.submitList(it)
             }
         })
+
+//        categoriesViewModel.categoryName.observe(viewLifecycleOwner, Observer {
+//            if (it.isEmpty()) {
+//                categoriesViewModel.clearReady()
+//            }
+//            else {
+//                categoriesViewModel.doneClear()
+//            }
+//        })
 
         val manager = LinearLayoutManager(context)
         binding.categoryList.layoutManager = manager

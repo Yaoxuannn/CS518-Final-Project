@@ -7,6 +7,10 @@
     <string name="event_date_edit_hint">Date Selection</string>
     <string name="sticky_on_top">Sticky on top</string>
 
+    <string name="category_selection">Select Category</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+
     <string name="test_event_name">My Birthday</string>
     <string name="test_event_date">Target Date: 2020–10–10</string>
     <string name="test_event_days">190</string>

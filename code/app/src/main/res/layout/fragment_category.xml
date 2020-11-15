@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:animateLayoutChanges="true"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <Button
             android:id="@+id/add_button"
@@ -27,7 +27,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:layout_marginTop="@dimen/normal_margin"
-            android:text="@string/new_category_create_text" />
+            android:onClick="@{() -> categoriesViewModel.onAddButtonClicked()}"
+            android:text="@{categoriesViewModel.addButtonText}" />
 
         <LinearLayout
             android:id="@+id/category_edit_layout"
@@ -35,9 +36,8 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:gravity="center"
-
-            android:visibility="@{categoriesViewModel.categoryEditLayoutVisible}"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="@{categoriesViewModel.categoryEditLayoutVisible}">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="0dp"
@@ -49,7 +49,9 @@
                     android:id="@+id/category_name_edit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/category_edit_hint"/>
+                    android:hint="@string/category_edit_hint"
+                    android:text="@={categoriesViewModel.categoryName}"
+                    android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
@@ -58,7 +60,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:layout_weight="1"
-                android:text="@string/category_edit_confirm" />
+                android:onClick="@{() -> categoriesViewModel.onConfirmButtonClicked()}"
+                android:text="@{categoriesViewModel.confirmButtonText}" />
 
         </LinearLayout>
 

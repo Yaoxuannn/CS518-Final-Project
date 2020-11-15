@@ -27,7 +27,6 @@
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 tools:srcCompat="@tools:sample/avatars" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -40,6 +39,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:text="@={eventDetailViewModel.eventName}"
                     android:hint="@string/event_name_edit_hint" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -50,7 +50,17 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="8dp"
-                android:text="@string/date_select_prompt" />
+                android:onClick="@{() -> eventDetailViewModel.onDatePickerClicked()}"
+                android:text="@{eventDetailViewModel.datePickerString}" />
+
+            <Button
+                android:id="@+id/category_select"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="8dp"
+                android:onClick="@{() -> eventDetailViewModel.onCategorySelectorClicked()}"
+                android:text="@{eventDetailViewModel.categoryString}" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -72,6 +82,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:layout_weight="1"
+                    android:onClick="@{() -> eventDetailViewModel.onConfirm()}"
                     android:text="confirm" />
             </LinearLayout>
 

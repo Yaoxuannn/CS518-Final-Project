@@ -15,11 +15,8 @@ data class Event(
     var eventName: String = "",
 
     @ColumnInfo(name = "target_date")
-    var eventDate: String = "",
+    var eventDate: Long = -1L,
 
     @ColumnInfo(name = "category_id")
     var categoryId: Long = -1L,
-
-    @ColumnInfo(name = "is_header_event")
-    var isHeaderEvent: Boolean = false
 )
