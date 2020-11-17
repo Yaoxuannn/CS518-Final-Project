@@ -1,5 +1,6 @@
 package com.cs518.comingday.ui.eventdetail
 
+import android.annotation.SuppressLint
 import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,13 +14,16 @@ import kotlinx.coroutines.launch
 import java.text.ParsePosition
 import java.text.SimpleDateFormat
 
-class EventDetailViewModel(private val eventId: Long = 0L, dataSource: EventDatabaseDao, categoryDataSource: CategoryDatabaseDao) : ViewModel() {
+class EventDetailViewModel(
+    private val eventId: Long = 0L,
+    dataSource: EventDatabaseDao,
+    categoryDataSource: CategoryDatabaseDao,
+) : ViewModel() {
     val database = dataSource
     private val categoryDatabase = categoryDataSource
 
     lateinit var categoryNames: Array<String>
     var checkedCategoryNameIdx: Int? = null
-
 
     private val _navigateToDashboard = MutableLiveData<Boolean?>()
     val navigateToDashboard: LiveData<Boolean?>
@@ -40,16 +44,19 @@ class EventDetailViewModel(private val eventId: Long = 0L, dataSource: EventData
 
     val datePickerString = MutableLiveData<String>()
     val categoryString = MutableLiveData<String>()
+    val confirmString = MutableLiveData<String>()
 
     val eventName = MutableLiveData<String>()
     var eventDate = ""
     var categoryName = ""
 
+    lateinit var curEvent: Event
+
 
     fun onDateSet(year: Int, month: Int, day: Int) {
-        datePickerString.value = "Date Selected: $month/$day/$year"
-        _showDatePicker.value = false
         eventDate = "$month/$day/$year"
+        datePickerString.value = "Date Selected: $eventDate"
+        _showDatePicker.value = false
     }
 
     private fun onCategorySet() {
@@ -68,6 +75,15 @@ class EventDetailViewModel(private val eventId: Long = 0L, dataSource: EventData
         }
     }
 
+    fun onDelete() {
+        viewModelScope.launch {
+            database.clearEventWithId(curEvent.eventId)
+        }
+        // SnackBar
+        _navigateToDashboard.value = true
+    }
+
+    @SuppressLint("SimpleDateFormat")
     fun onConfirm() {
         // TODO: 检测函数
         // For creating new events
@@ -83,7 +99,12 @@ class EventDetailViewModel(private val eventId: Long = 0L, dataSource: EventData
         }
         // For updating existed events
         else {
-
+            curEvent.eventName = requireNotNull(eventName.value)
+            curEvent.eventDate = SimpleDateFormat("MM/dd/yyyy").parse(eventDate, ParsePosition(0)).time
+            viewModelScope.launch {
+                curEvent.categoryId = categoryDatabase.getCategoryIdWithName(categoryName)
+                database.update(curEvent)
+            }
         }
         _navigateToDashboard.value = true
     }
@@ -99,22 +120,35 @@ class EventDetailViewModel(private val eventId: Long = 0L, dataSource: EventData
         _navigateToDashboard.value = null
     }
 
+    @SuppressLint("SimpleDateFormat")
+    private fun setDataString(eventId: Long) {
+        confirmString.value = "Update"
+        viewModelScope.launch {
+            curEvent = database.getEventWithId(eventId)
+            eventName.value = curEvent.eventName
+            eventDate = SimpleDateFormat("MM/dd/yyyy").format(curEvent.eventDate)
+            categoryName = categoryDatabase.getCategoryNameWithId(curEvent.categoryId)
+            datePickerString.value = "Date Selected: $eventDate"
+            categoryString.value = "Category Selected: $categoryName"
+        }
+    }
+
     init {
         if (eventId == 0L) {
             _deleteBtnVisible.value = View.GONE
             datePickerString.value = "Select a date"
             categoryString.value = "Select a category"
-        }
-        else {
+            confirmString.value = "Confirm"
+        } else {
             _deleteBtnVisible.value = View.VISIBLE
-            // TODO
+            setDataString(eventId)
         }
     }
 
     private fun extractCategoryName(categories: List<Category>): Array<String> {
-        return categories.map { category -> category.categoryName }.stream().toArray { arrayOfNulls<String>(it) }
+        return categories.map { category -> category.categoryName }.stream()
+            .toArray { arrayOfNulls<String>(it) }
     }
-
 
 
 }

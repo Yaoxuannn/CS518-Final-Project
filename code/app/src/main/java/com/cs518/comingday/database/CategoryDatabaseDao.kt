@@ -24,6 +24,9 @@ interface CategoryDatabaseDao {
     @Query("SELECT categoryId FROM category_table WHERE category_name = :name")
     suspend fun getCategoryIdWithName(name: String): Long
 
+    @Query("SELECT category_name FROM category_table WHERE categoryId = :key")
+    suspend fun getCategoryNameWithId(key: Long): String
+
     @Query("DELETE FROM category_table WHERE categoryId = :key")
     suspend fun clearCategoryWithId(key: Long)
 

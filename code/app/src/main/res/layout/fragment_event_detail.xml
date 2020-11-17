@@ -73,8 +73,9 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:layout_weight="1"
+                    android:onClick="@{() -> eventDetailViewModel.onDelete()}"
                     android:visibility="@{eventDetailViewModel.deleteBtnVisible}"
-                    android:text="delete" />
+                    android:text="@string/delete" />
 
                 <Button
                     android:id="@+id/confirm_btn"
@@ -83,7 +84,7 @@
                     android:layout_margin="8dp"
                     android:layout_weight="1"
                     android:onClick="@{() -> eventDetailViewModel.onConfirm()}"
-                    android:text="confirm" />
+                    android:text="@{eventDetailViewModel.confirmString}" />
             </LinearLayout>
 
 

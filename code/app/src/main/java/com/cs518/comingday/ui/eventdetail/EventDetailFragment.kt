@@ -42,9 +42,9 @@ class EventDetailFragment : Fragment() {
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
         val dpd = DatePickerDialog(requireContext(), { _, _year, monthOfYear, dayOfMonth ->
-            eventDetailViewModel.onDateSet(_year, monthOfYear, dayOfMonth)
+            eventDetailViewModel.onDateSet(_year, monthOfYear+1, dayOfMonth)
         }, year, month, day)
-        dpd.datePicker.minDate = System.currentTimeMillis()
+        dpd.datePicker.minDate = System.currentTimeMillis() + (1000*3600*24)
 
         val adb = MaterialAlertDialogBuilder(requireContext())
             .setTitle(resources.getString(R.string.category_selection))

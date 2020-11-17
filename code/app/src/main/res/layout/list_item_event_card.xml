@@ -47,14 +47,14 @@
                     android:id="@+id/product_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/test_event_days"
+                    app:numberOfRemainingDays="@{event}"
                     android:textAppearance="?attr/textAppearanceHeadline6" />
 
                 <TextView
                     android:id="@+id/product_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/test_event_name"
+                    app:eventName="@{event}"
                     android:textAppearance="?attr/textAppearanceBody2" />
             </LinearLayout>
         </LinearLayout>
