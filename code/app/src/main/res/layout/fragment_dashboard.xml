@@ -30,7 +30,7 @@
             android:layout_gravity="bottom|right"
             android:layout_margin="16dp"
             android:contentDescription="@string/extended_fab_content_desc"
-            android:text="@string/create_label"
+            android:text="@string/create"
             android:onClick="@{() -> dashboardViewModel.onCreateButtonClicked()}"
             app:icon="@drawable/ic_plus"
             app:layout_constraintBottom_toTopOf="@+id/event_list"

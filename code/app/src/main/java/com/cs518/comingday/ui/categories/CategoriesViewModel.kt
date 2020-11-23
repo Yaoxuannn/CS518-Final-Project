@@ -1,31 +1,44 @@
 package com.cs518.comingday.ui.categories
 
-import android.util.Log
 import android.view.View
-import android.widget.TextView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cs518.comingday.database.Category
 import com.cs518.comingday.database.CategoryDatabaseDao
+import com.cs518.comingday.database.EventDatabaseDao
 import kotlinx.coroutines.launch
+import java.lang.IllegalArgumentException
+import java.util.*
 
-class CategoriesViewModel(dataSource: CategoryDatabaseDao) : ViewModel() {
+class CategoriesViewModel(dataSource: CategoryDatabaseDao, eventDatabase: EventDatabaseDao) : ViewModel() {
 
     val database = dataSource
+    val eventDatabase = eventDatabase
 
     private var editLayoutVisible = false
-    private var clearReady = false
     private var curCategory: Category?
 
     private val _categoryEditLayoutVisible = MutableLiveData<Int?>()
-    val categoryEditLayoutVisible : LiveData<Int?>
+    val categoryEditLayoutVisible: LiveData<Int?>
         get() = _categoryEditLayoutVisible
+
+    private val _deleteButtonVisible = MutableLiveData<Int?>()
+    val deleteButtonVisible: LiveData<Int?>
+        get() = _deleteButtonVisible
 
     private val _showSnackBar = MutableLiveData<Boolean?>()
     val showSnackBar: LiveData<Boolean?>
         get() = _showSnackBar
+
+    private val _showDeleteConfirmation = MutableLiveData<Boolean?>()
+    val showDeleteConfirmation: LiveData<Boolean?>
+        get() = _showDeleteConfirmation
+
+    private val _hideInputMethod = MutableLiveData<Boolean?>()
+    val hideInputMethod: LiveData<Boolean?>
+        get() = _hideInputMethod
 
     val categoryName = MutableLiveData<String>()
     val addButtonText = MutableLiveData<String>()
@@ -35,6 +48,7 @@ class CategoriesViewModel(dataSource: CategoryDatabaseDao) : ViewModel() {
 
     init {
         _categoryEditLayoutVisible.value = View.GONE
+        _deleteButtonVisible.value = View.GONE
         categoryName.value = ""
         curCategory = null
         addButtonText.value = DEFAULT_ADD_TEXT
@@ -45,9 +59,17 @@ class CategoriesViewModel(dataSource: CategoryDatabaseDao) : ViewModel() {
         _showSnackBar.value = null
     }
 
+    fun doneHideInputMethod() {
+        _hideInputMethod.value = null
+    }
+
+    fun doneShowDeleteConfirmation() {
+        _showDeleteConfirmation.value = null
+    }
+
     fun onAddButtonClicked() {
         confirmButtonText.value = DEFAULT_CONFIRM_TEXT
-        if(editLayoutVisible) hideEditLayout()
+        if (editLayoutVisible) hideEditLayout()
         else {
             curCategory = null
             showEditLayout()
@@ -69,55 +91,58 @@ class CategoriesViewModel(dataSource: CategoryDatabaseDao) : ViewModel() {
 
     fun onConfirmButtonClicked() {
         hideEditLayout()
-        if (clearReady) {
-            curCategory?.let {
-                viewModelScope.launch {
-                    clear(it)
-                }
-            }
-        }
-        else {
-            // TODO: 抽离update和add的检测函数
+        _deleteButtonVisible.value = View.GONE
+        if (categoryNameCheck()) {
             curCategory?.let { updateCategory(it) } ?: addNewCategory()
+        } else {
+            _showSnackBar.value = true
+        }
+        _hideInputMethod.value = true
+    }
+
+    fun onDeleteButtonClicked() {
+        hideEditLayout()
+        _deleteButtonVisible.value = View.GONE
+        _hideInputMethod.value = true
+        _showDeleteConfirmation.value = true
+    }
+
+    fun doDelete() {
+        curCategory?.let {
+            viewModelScope.launch {
+                clear(it)
+                eventDatabase.clearEventWithCategoryId(it.categoryId)
+            }
         }
     }
 
     private fun addNewCategory() {
-        if (categoryName.value.toString().isNotEmpty()) {
-            viewModelScope.launch {
-                val newCategory = Category(categoryName = categoryName.value.toString().trim())
-                insert(newCategory)
-            }
-        }
-        else {
-            _showSnackBar.value = true
+        viewModelScope.launch {
+            val newCategory = Category(categoryName = categoryName.value.toString().trim())
+            insert(newCategory)
         }
     }
 
     private fun updateCategory(category: Category) {
-        if (categoryName.value.toString().isNotEmpty()) {
-            viewModelScope.launch {
-                category.categoryName = categoryName.value.toString()
-                update(category)
-            }
-        }
-        else {
-            _showSnackBar.value = true
+        viewModelScope.launch {
+            category.categoryName = categoryName.value.toString()
+            update(category)
         }
     }
 
-    fun clearReady() {
-        if(curCategory != null) {
-            confirmButtonText.value = CLEAR_CONFIRM_TEXT
-            clearReady = true
+    private fun categoryNameCheck(): Boolean {
+        // Unique Test
+        categories.value?.forEach { category ->
+            if (categoryName.value?.toLowerCase(Locale.ROOT) == category.categoryName.toLowerCase(
+                    Locale.ROOT)
+            ) return false
         }
-    }
-
-    fun doneClear() {
-        if (curCategory != null) {
-            confirmButtonText.value = DEFAULT_CONFIRM_TEXT
-            clearReady = false
-        }
+        // Length Test
+        if (categoryName.value?.isEmpty()!!) return false
+        // Legality Test
+        if (categoryName.value?.contains(Regex("\\s"))!!) return false
+        // All Pass
+        return true
     }
 
     fun onCategoryClicked(categoryId: Long) {
@@ -127,6 +152,7 @@ class CategoriesViewModel(dataSource: CategoryDatabaseDao) : ViewModel() {
             categoryName.value = category.categoryName
             curCategory = category
             confirmButtonText.value = MODIFIED_CONFIRM_TEXT
+            _deleteButtonVisible.value = View.VISIBLE
         }
     }
 
@@ -147,7 +173,6 @@ class CategoriesViewModel(dataSource: CategoryDatabaseDao) : ViewModel() {
         private const val DEFAULT_CONFIRM_TEXT = "Confirm"
         private const val MODIFIED_ADD_TEXT = "Hide Component"
         private const val MODIFIED_CONFIRM_TEXT = "Update"
-        private const val CLEAR_CONFIRM_TEXT = "Clear"
     }
 
 

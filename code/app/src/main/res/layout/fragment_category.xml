@@ -36,12 +36,12 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:gravity="center"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:visibility="@{categoriesViewModel.categoryEditLayoutVisible}">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_margin="8dp"
                 android:layout_weight="7">
 
@@ -50,18 +50,36 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/category_edit_hint"
-                    android:text="@={categoriesViewModel.categoryName}"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:text="@={categoriesViewModel.categoryName}" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <Button
-                android:id="@+id/category_name_confirm"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:layout_weight="1"
-                android:onClick="@{() -> categoriesViewModel.onConfirmButtonClicked()}"
-                android:text="@{categoriesViewModel.confirmButtonText}" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/category_name_confirm"
+                    style='style="?android:attr/buttonBarButtonStyle"'
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:onClick="@{() -> categoriesViewModel.onConfirmButtonClicked()}"
+                    android:text="@{categoriesViewModel.confirmButtonText}" />
+
+                <Button
+                    android:id="@+id/category_delete_btn"
+                    style='style="?android:attr/buttonBarButtonStyle"'
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:onClick="@{() -> categoriesViewModel.onDeleteButtonClicked()}"
+                    android:visibility="@{categoriesViewModel.deleteButtonVisible}"
+                    android:text="@string/delete" />
+            </LinearLayout>
 
         </LinearLayout>
 

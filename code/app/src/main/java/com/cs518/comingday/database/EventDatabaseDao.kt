@@ -24,6 +24,9 @@ interface EventDatabaseDao {
     @Query("DELETE FROM event_table WHERE eventId = :key")
     suspend fun clearEventWithId(key: Long)
 
+    @Query("DELETE FROM event_table WHERE category_id = :key")
+    suspend fun clearEventWithCategoryId(key: Long)
+
     @Query("SELECT * from event_table WHERE eventId = :key")
     suspend fun getEventWithId(key: Long): Event
 }
