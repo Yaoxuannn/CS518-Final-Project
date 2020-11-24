@@ -12,7 +12,8 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#E8EAF6">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/event_list"
@@ -30,8 +31,8 @@
             android:layout_gravity="bottom|right"
             android:layout_margin="16dp"
             android:contentDescription="@string/extended_fab_content_desc"
-            android:text="@string/create"
             android:onClick="@{() -> dashboardViewModel.onCreateButtonClicked()}"
+            android:text="@string/create"
             app:icon="@drawable/ic_plus"
             app:layout_constraintBottom_toTopOf="@+id/event_list"
             app:layout_constraintEnd_toEndOf="parent" />

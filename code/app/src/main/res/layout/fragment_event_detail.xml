@@ -11,7 +11,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#E8EAF6">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -39,8 +40,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="@={eventDetailViewModel.eventName}"
-                    android:hint="@string/event_name_edit_hint" />
+                    android:hint="@string/event_name_edit_hint"
+                    android:text="@={eventDetailViewModel.eventName}" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -74,8 +75,8 @@
                     android:layout_margin="8dp"
                     android:layout_weight="1"
                     android:onClick="@{() -> eventDetailViewModel.onDelete()}"
-                    android:visibility="@{eventDetailViewModel.deleteBtnVisible}"
-                    android:text="@string/delete" />
+                    android:text="@string/delete"
+                    android:visibility="@{eventDetailViewModel.deleteBtnVisible}" />
 
                 <Button
                     android:id="@+id/confirm_btn"

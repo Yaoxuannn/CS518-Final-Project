@@ -17,8 +17,9 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:animateLayoutChanges="true"
+        android:background="#E3F2FD"
         android:orientation="vertical">
 
         <Button
@@ -33,7 +34,7 @@
         <LinearLayout
             android:id="@+id/category_edit_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
             android:orientation="vertical"
@@ -77,8 +78,8 @@
                     android:layout_margin="8dp"
                     android:layout_weight="1"
                     android:onClick="@{() -> categoriesViewModel.onDeleteButtonClicked()}"
-                    android:visibility="@{categoriesViewModel.deleteButtonVisible}"
-                    android:text="@string/delete" />
+                    android:text="@string/delete"
+                    android:visibility="@{categoriesViewModel.deleteButtonVisible}" />
             </LinearLayout>
 
         </LinearLayout>
