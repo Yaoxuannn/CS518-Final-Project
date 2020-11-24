@@ -2,7 +2,6 @@ package com.cs518.comingday
 
 import java.util.*
 
-// TODO("这里写一些文本/日期转换辅助函数")
 fun getTodayStartTime(tz: TimeZone): Long {
     val calendar = Calendar.getInstance(tz)
     calendar.timeInMillis = System.currentTimeMillis()

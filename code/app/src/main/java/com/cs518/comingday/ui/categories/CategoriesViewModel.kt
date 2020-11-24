@@ -12,10 +12,9 @@ import kotlinx.coroutines.launch
 import java.lang.IllegalArgumentException
 import java.util.*
 
-class CategoriesViewModel(dataSource: CategoryDatabaseDao, eventDatabase: EventDatabaseDao) : ViewModel() {
+class CategoriesViewModel(dataSource: CategoryDatabaseDao, val eventDatabase: EventDatabaseDao) : ViewModel() {
 
     val database = dataSource
-    val eventDatabase = eventDatabase
 
     private var editLayoutVisible = false
     private var curCategory: Category?

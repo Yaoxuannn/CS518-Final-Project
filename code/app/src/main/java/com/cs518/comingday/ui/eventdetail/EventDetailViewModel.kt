@@ -33,6 +33,10 @@ class EventDetailViewModel(
     val showDatePicker: LiveData<Boolean?>
         get() = _showDatePicker
 
+    private val _showSnackBar = MutableLiveData<Boolean?>()
+    val showSnackBar: LiveData<Boolean?>
+        get() = _showSnackBar
+
     private val _showCategorySelector = MutableLiveData<Boolean?>()
     val showCategorySelector: LiveData<Boolean?>
         get() = _showCategorySelector
@@ -85,7 +89,10 @@ class EventDetailViewModel(
 
     @SuppressLint("SimpleDateFormat")
     fun onConfirm() {
-        // TODO: 检测函数
+        if (!checkEvent()) {
+            _showSnackBar.value = true
+            return
+        }
         // For creating new events
         if (eventId == 0L) {
             viewModelScope.launch {
@@ -109,6 +116,16 @@ class EventDetailViewModel(
         _navigateToDashboard.value = true
     }
 
+    private fun checkEvent(): Boolean {
+        // 1. eventName
+        if (eventName.value?.isEmpty()!!) return false
+        if (eventName.value?.contains(Regex("\\s"))!!) return false
+        // 2. all checked
+        if (eventDate.isEmpty() || categoryName.isEmpty()) return false
+        // 3. all pass
+        return true
+    }
+
     fun setCategory(categoryNameIdx: Int) {
         categoryName = categoryNames[categoryNameIdx]
         checkedCategoryNameIdx = categoryNameIdx
@@ -118,6 +135,10 @@ class EventDetailViewModel(
 
     fun doneNavigating() {
         _navigateToDashboard.value = null
+    }
+
+    fun doneShowSnackBar() {
+        _showSnackBar.value = null
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -136,6 +157,7 @@ class EventDetailViewModel(
     init {
         if (eventId == 0L) {
             _deleteBtnVisible.value = View.GONE
+            eventName.value = ""
             datePickerString.value = "Select a date"
             categoryString.value = "Select a category"
             confirmString.value = "Confirm"

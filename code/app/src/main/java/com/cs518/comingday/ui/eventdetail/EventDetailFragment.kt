@@ -18,6 +18,7 @@ import com.cs518.comingday.database.Event
 import com.cs518.comingday.database.EventDatabase
 import com.cs518.comingday.databinding.FragmentEventDetailBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 import java.util.*
 
 class EventDetailFragment : Fragment() {
@@ -59,6 +60,17 @@ class EventDetailFragment : Fragment() {
                     EventDetailFragmentDirections.actionEventDetailFragmentToDashboardFragment()
                 )
                 eventDetailViewModel.doneNavigating()
+            }
+        })
+
+        eventDetailViewModel.showSnackBar.observe(viewLifecycleOwner, Observer {
+            if (it == true) {
+                Snackbar.make(
+                    requireActivity().findViewById(android.R.id.content),
+                    "Something wrong with your event. Check before confirm.",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+                eventDetailViewModel.doneShowSnackBar()
             }
         })
 
