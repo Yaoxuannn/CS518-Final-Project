@@ -12,5 +12,5 @@ data class Category(
     var categoryId: Long = 0L,
 
     @ColumnInfo(name = "category_name")
-    var categoryName: String = ""
+    var categoryName: String = "",
 )

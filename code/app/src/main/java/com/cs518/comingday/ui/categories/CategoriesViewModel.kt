@@ -9,10 +9,10 @@ import com.cs518.comingday.database.Category
 import com.cs518.comingday.database.CategoryDatabaseDao
 import com.cs518.comingday.database.EventDatabaseDao
 import kotlinx.coroutines.launch
-import java.lang.IllegalArgumentException
 import java.util.*
 
-class CategoriesViewModel(dataSource: CategoryDatabaseDao, val eventDatabase: EventDatabaseDao) : ViewModel() {
+class CategoriesViewModel(dataSource: CategoryDatabaseDao, val eventDatabase: EventDatabaseDao) :
+    ViewModel() {
 
     val database = dataSource
 

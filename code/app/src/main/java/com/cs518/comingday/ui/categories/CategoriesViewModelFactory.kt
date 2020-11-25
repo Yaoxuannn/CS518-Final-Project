@@ -7,7 +7,7 @@ import com.cs518.comingday.database.EventDatabaseDao
 
 class CategoriesViewModelFactory(
     private val dataSource: CategoryDatabaseDao,
-    private val eventDataSource: EventDatabaseDao
+    private val eventDataSource: EventDatabaseDao,
 ) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {

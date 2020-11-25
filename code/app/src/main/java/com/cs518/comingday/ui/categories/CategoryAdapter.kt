@@ -8,7 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cs518.comingday.database.Category
 import com.cs518.comingday.databinding.ListItemCategoryBinding
 
-class CategoryAdapter(val clickListener: CategoryClickListener) : ListAdapter<Category, CategoryAdapter.ViewHolder>(CategoryDiffCallback()) {
+class CategoryAdapter(val clickListener: CategoryClickListener) :
+    ListAdapter<Category, CategoryAdapter.ViewHolder>(CategoryDiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryAdapter.ViewHolder {
         return ViewHolder.from(parent)
     }
@@ -18,7 +19,8 @@ class CategoryAdapter(val clickListener: CategoryClickListener) : ListAdapter<Ca
         holder.bind(item, clickListener)
     }
 
-    class ViewHolder private constructor(val binding: ListItemCategoryBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder private constructor(val binding: ListItemCategoryBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Category, clickListener: CategoryClickListener) {
             binding.category = item
             binding.clickListener = clickListener
@@ -26,7 +28,7 @@ class CategoryAdapter(val clickListener: CategoryClickListener) : ListAdapter<Ca
         }
 
         companion object {
-            fun from(parent: ViewGroup) : ViewHolder {
+            fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = ListItemCategoryBinding.inflate(layoutInflater, parent, false)
                 return ViewHolder(binding)

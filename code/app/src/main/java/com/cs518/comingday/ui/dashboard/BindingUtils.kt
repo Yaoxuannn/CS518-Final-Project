@@ -11,7 +11,7 @@ import kotlin.math.abs
 fun TextView.setNumberOfRemainDays(item: Event?) {
     item?.let {
         val today = getTodayStartTime(TimeZone.getDefault())
-        val days = ((item.eventDate - today) / (1000*3600*24)).toInt()
+        val days = ((item.eventDate - today) / (1000 * 3600 * 24)).toInt()
         text = when {
             days == -1 -> {
                 "1 day passed"

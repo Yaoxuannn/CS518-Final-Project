@@ -8,7 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cs518.comingday.database.Event
 import com.cs518.comingday.databinding.ListItemEventCardBinding
 
-class EventCardRecyclerViewAdapter(val cardClickListener: EventCardClickListener) : ListAdapter<Event, EventCardRecyclerViewAdapter.ViewHolder>(EventDiffCallback()) {
+class EventCardRecyclerViewAdapter(val cardClickListener: EventCardClickListener) :
+    ListAdapter<Event, EventCardRecyclerViewAdapter.ViewHolder>(EventDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
@@ -20,7 +21,8 @@ class EventCardRecyclerViewAdapter(val cardClickListener: EventCardClickListener
     }
 
 
-    class ViewHolder private constructor(val binding: ListItemEventCardBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder private constructor(val binding: ListItemEventCardBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Event, cardClickListener: EventCardClickListener) {
             binding.event = item

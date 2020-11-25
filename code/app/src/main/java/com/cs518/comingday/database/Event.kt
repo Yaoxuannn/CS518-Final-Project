@@ -3,7 +3,6 @@ package com.cs518.comingday.database
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.util.*
 
 
 @Entity(tableName = "event_table")

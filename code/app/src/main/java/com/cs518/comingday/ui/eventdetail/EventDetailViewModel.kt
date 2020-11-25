@@ -98,7 +98,8 @@ class EventDetailViewModel(
             viewModelScope.launch {
                 val event = Event(
                     eventName = requireNotNull(eventName.value),
-                    eventDate = SimpleDateFormat("MM/dd/yyyy").parse(eventDate, ParsePosition(0)).time,
+                    eventDate = SimpleDateFormat("MM/dd/yyyy").parse(eventDate,
+                        ParsePosition(0)).time,
                     categoryId = categoryDatabase.getCategoryIdWithName(categoryName),
                 )
                 database.insert(event)
@@ -107,7 +108,8 @@ class EventDetailViewModel(
         // For updating existed events
         else {
             curEvent.eventName = requireNotNull(eventName.value)
-            curEvent.eventDate = SimpleDateFormat("MM/dd/yyyy").parse(eventDate, ParsePosition(0)).time
+            curEvent.eventDate =
+                SimpleDateFormat("MM/dd/yyyy").parse(eventDate, ParsePosition(0)).time
             viewModelScope.launch {
                 curEvent.categoryId = categoryDatabase.getCategoryIdWithName(categoryName)
                 database.update(curEvent)
