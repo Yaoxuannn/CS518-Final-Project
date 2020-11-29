@@ -121,7 +121,7 @@ class EventDetailViewModel(
     private fun checkEvent(): Boolean {
         // 1. eventName
         if (eventName.value?.isEmpty()!!) return false
-        if (eventName.value?.contains(Regex("\\s"))!!) return false
+        if (eventName.value?.contains(Regex("\\n"))!!) return false
         // 2. all checked
         if (eventDate.isEmpty() || categoryName.isEmpty()) return false
         // 3. all pass
