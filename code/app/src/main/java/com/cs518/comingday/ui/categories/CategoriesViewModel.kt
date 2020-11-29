@@ -139,7 +139,7 @@ class CategoriesViewModel(dataSource: CategoryDatabaseDao, val eventDatabase: Ev
         // Length Test
         if (categoryName.value?.isEmpty()!!) return false
         // Legality Test
-        if (categoryName.value?.contains(Regex("\\s"))!!) return false
+        if (categoryName.value?.contains(Regex("\\n"))!!) return false
         // All Pass
         return true
     }
